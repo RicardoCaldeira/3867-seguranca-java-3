@@ -4,6 +4,6 @@ CREATE TABLE usuarios (
     senha VARCHAR(100) NOT NULL,
     nome_completo VARCHAR(100) NOT NULL,
     nome_usuario VARCHAR(100) NOT NULL,
-    mini_biografia VARCHAR(30) NOT NULL,
+    mini_biografia VARCHAR(30),
     biografia TEXT
 );

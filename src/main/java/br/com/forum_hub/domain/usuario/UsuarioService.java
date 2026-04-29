@@ -2,7 +2,9 @@ package br.com.forum_hub.domain.usuario;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioService implements UserDetailsService {
 
     private final UsuarioRepository repository;
