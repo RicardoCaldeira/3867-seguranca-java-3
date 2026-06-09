@@ -29,7 +29,35 @@ public class TokenService {
         }
     }
 
+    public String gerarRefreshToken(Usuario usuario) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("chave-secreta");
+            return JWT.create()
+                    .withIssuer("Forum Hub")
+                    .withSubject(usuario.getId().toString())
+                    .withExpiresAt(expirarEm(120))
+                    .sign(algorithm);
+        } catch (JWTCreationException exception) {
+            throw new RegraDeNegocioException("Erro ao gerar token JWT de acesso!");
+        }
+    }
+
     public String verificarTokenEobterSubject(String token) {
+        DecodedJWT decodedJWT;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("chave-secreta");
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("Forum Hub")
+                    .build();
+
+            decodedJWT = verifier.verify(token);
+            return decodedJWT.getSubject();
+        } catch (RuntimeException e) {
+            throw new RegraDeNegocioException("Erro ao gerar token JWT de acesso!");
+        }
+    }
+
+    public String verificarRefreshTokenEobterSubject(String token) {
         DecodedJWT decodedJWT;
         try {
             Algorithm algorithm = Algorithm.HMAC256("chave-secreta");
@@ -48,6 +76,5 @@ public class TokenService {
     private Instant expirarEm(int minutos) {
         return LocalDateTime.now().plusMinutes(minutos).toInstant(ZoneOffset.of("-03:00"));
     }
-
 
 }

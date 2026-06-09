@@ -27,6 +27,7 @@ public class ConfiguracoesSeguranca {
         return http
             .authorizeHttpRequests(
                     req -> req.requestMatchers("/login").permitAll() // permite acesso sem autenticação para endpoints de autenticação
+                    .requestMatchers("/atualizar-token").permitAll() // permite acesso sem autenticação para endpoints de atualização de token
                     .anyRequest().authenticated() // exige autenticação para todos os outros endpoints
             )
             .sessionManagement(sm -> // desabilita a criação de sessões, pois usaremos JWT para autenticação
