@@ -23,7 +23,7 @@ public class EmailService {
         this.enviadorEmail = enviadorEmail;
     }
     @Async
-    private void enviarEmail(String emailUsuario, String assunto, String conteudo) {
+    protected void enviarEmail(String emailUsuario, String assunto, String conteudo) {
         MimeMessage message = enviadorEmail.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
